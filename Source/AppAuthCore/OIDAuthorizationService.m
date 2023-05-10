@@ -95,6 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
                                         underlyingError:nil
                                             description:@"Authorization flow was cancelled."];
       [self didFinishWithResponse:nil error:error];
+      _externalUserAgent = nil;
       if (completion) completion();
   }];
 }
@@ -186,7 +187,6 @@ NS_ASSUME_NONNULL_BEGIN
                         error:(nullable NSError *)error {
   OIDAuthorizationCallback callback = _pendingauthorizationFlowCallback;
   _pendingauthorizationFlowCallback = nil;
-  _externalUserAgent = nil;
   if (callback) {
     callback(response, error);
   }
@@ -242,6 +242,7 @@ NS_ASSUME_NONNULL_BEGIN
                       underlyingError:nil
                       description:nil];
     [self didFinishWithResponse:nil error:error];
+    _externalUserAgent = nil;
     if (completion) completion();
   }];
 }
@@ -306,7 +307,6 @@ NS_ASSUME_NONNULL_BEGIN
                         error:(nullable NSError *)error {
   OIDEndSessionCallback callback = _pendingEndSessionCallback;
   _pendingEndSessionCallback = nil;
-  _externalUserAgent = nil;
   if (callback) {
     callback(response, error);
   }
